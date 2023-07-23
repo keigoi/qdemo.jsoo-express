@@ -1,22 +1,15 @@
 (executables
  (names server_main)
- (libraries
-  opstic
-  bisect_ppx.runtime
-  prr
-  kxclib
-  kxclib.jsoo)
+ (libraries opstic bisect_ppx.runtime prr kxclib kxclib.jsoo)
  (preprocess
   (pps js_of_ocaml-ppx opstic.ppx rows.ppx))
- (instrumentation (backend bisect_ppx))
+ (instrumentation
+  (backend bisect_ppx))
  (modes byte js)
  (flags
-  (:standard
-   -open
-   Kxclib)))
+  (:standard -open Kxclib)))
 
 (env
-
  (dev
   (js_of_ocaml
    (flags
@@ -24,17 +17,16 @@
      --source-map
      --target-env
      browser ;; note that this is intentional even when we target nodejs
-     --no-inline 
-    ;  --pretty 
-    ;  --debug-info 
-    ;  --disable staticeval
-    ;  --disable 
-    ;  share
+     --no-inline
+     ;  --pretty 
+     ;  --debug-info 
+     ;  --disable staticeval
+     ;  --disable 
+     ;  share
      ))
    (link_flags
     ((:standard \ --source-map-inline --pretty)
      --source-map))))
-
  (release
   (js_of_ocaml
    (flags
@@ -43,6 +35,5 @@
      --target-env
      browser ;; note that this is intentional even when we target nodejs
      --opt=1))
-   (link_flags
-    ((:standard \ --source-map-inline --pretty)))
+   (link_flags ((:standard \ --source-map-inline --pretty)))
    (compilation_mode whole_program))))
