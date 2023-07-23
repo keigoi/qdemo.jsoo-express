@@ -1,6 +1,12 @@
 [submodule "vendors/prr"]
 	path = vendors/prr
-	url = git@github.com:kxcdev/prr.git
+	url = https://github.com/kxcdev/prr.git
 [submodule "vendors/kxclib"]
 	path = vendors/kxclib
-	url = git@github.com:kxcteam/kxclib-ocaml.git
+	url = https://github.com/kxcteam/kxclib-ocaml.git
+[submodule "vendors/opstic"]
+	path = vendors/opstic
+	url = https://github.com/anzaux/opstic.git
+[submodule "vendors/rows"]
+	path = vendors/rows
+	url = https://github.com/keigoi/rows-ocaml.git

@@ -89,12 +89,21 @@ let () =
                 reqbody_js)
             (function
               | Ok body -> return { status_code = 200; body }
-              | Error err ->
-                  return
-                    {
-                      status_code = 500;
-                      body = `str (Opstic.Monad.error_to_string err);
-                    })
+              | Error err -> (
+                  (* FIXME: dedicated exception for 404 *)
+                  let msg = Opstic.Monad.error_to_string err in
+                  match
+                    Prr.Jstr.(v msg |> find_sub ~sub:(v "No path"))
+                  with
+                  | Some idx ->
+                      return
+                        {
+                          status_code = 404;
+                          body =
+                            `str String.(sub msg idx (length msg - idx));
+                        }
+                  | None ->
+                      return { status_code = 500; body = `str msg }))
           |> to_promise
     end
   in
